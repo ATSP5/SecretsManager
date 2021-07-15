@@ -1,0 +1,47 @@
+﻿<Window x:Class="SecretsManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SecretsManager"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel Margin="0,0,0,0">
+        <Menu DockPanel.Dock="Top" >
+            <MenuItem  Header="File">
+                <MenuItem Header="New" Name="mINew" Click ="mINew_Click"/>
+                <MenuItem Header="Open public text" Name="mIOpenPublicText" Click="mIOpenPublicText_Click"/>
+                <MenuItem Header="Open secret text" Name="mIOpenSecretText" Click="mIOpenSecretText_Click"/>
+                <MenuItem Header="Save public text" Name="mISavePublicText" Click="mISavePublicText_Click"/>
+                <MenuItem Header="Save secret text" Name="mISaveSecretText" Click="mISaveSecretText_Click"/>
+                <MenuItem Header="Encrypt" Name="mIEncrypt" InputGestureText="Ctrl+E"/>
+                <MenuItem Header="Decrypt" Name="mIDecrypt" InputGestureText="Ctrl+D"/>
+                <MenuItem Header="Close" Name="mIClose" Click="mIClose_Click"/>
+            </MenuItem>
+            <MenuItem Header="Chose algorithm">
+                <MenuItem Header="AES" Name="mIAES" Click="mIAES_Click"/>
+                <MenuItem Header="OFB Stream" Name="mIOFBStream" Click="mIOFBStream_Click"/>
+            </MenuItem>
+            <MenuItem Header="Set Password" Name="mISetPassword" Click="mISetPassword_Click"/>
+            <TextBlock>Is password set:</TextBlock>
+            <CheckBox x:Name="mISeetPasswordCHB" IsEnabled="False"/>
+            <TextBlock>Encription Mode:</TextBlock>
+            <TextBox x:Name="EncriptionModeTB" IsEnabled="False"></TextBox>
+        </Menu>
+        <TabControl DockPanel.Dock="Top">
+            <TabItem Header="Text mode">
+                <TextBox DockPanel.Dock="Bottom" Margin="0,0,0,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Name ="MainWorkspace"  AcceptsReturn="True" AcceptsTab="True" TextChanged="MainWorkspace_TextChanged">
+
+                </TextBox>
+            </TabItem>
+            <TabItem Header=" 2K Table mode">
+                <DataGrid Name="TwoKDataGrid"></DataGrid>
+            </TabItem>
+            <TabItem Header=" 3K Table mode">
+                <DataGrid Name="TreeKDataGrid"></DataGrid>
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
+
+</Window>
