@@ -16,6 +16,8 @@ namespace SecretsManager.Models
 
         private bool _isEncrypted;
 
+        private bool _enableWorkspace;
+
         public readonly OperatingMode operatingMode;
 
         [field: NonSerialized()]
@@ -34,6 +36,19 @@ namespace SecretsManager.Models
             }
         }
 
+        public bool EnableWorkspace
+        {
+            get
+            {
+                return _enableWorkspace;
+            }
+            set
+            {
+                _enableWorkspace = value;
+                this.NotifyPropertyChanged("EnableWorkspace");
+            }
+        }
+
         public bool IsEncrypted
         {
             get
@@ -43,6 +58,7 @@ namespace SecretsManager.Models
             set
             {
                 _isEncrypted = value;
+                EnableWorkspace = !value;
                 this.NotifyPropertyChanged("IsEncrypted");
             }
         }
@@ -50,7 +66,8 @@ namespace SecretsManager.Models
         public BasicText()
         {
             _text = "";
-            _isEncrypted = false;
+            IsEncrypted = false;
+            EnableWorkspace = true;
             operatingMode = OperatingMode.TextMode;
         }
         public void NotifyPropertyChanged(string propName)
@@ -86,12 +103,13 @@ namespace SecretsManager.Models
         {
             var fasade = new EncriptionFasade();
             Text = fasade.Enctypt(_text, algorythm);
-          
+            IsEncrypted = true;
         }
         public void Decrypt(EncryptionAlgorythm algorythm)
         {
             var fasade = new EncriptionFasade();
             Text = fasade.Dectypt(_text, algorythm);
+            IsEncrypted = false;
         }
     }
 }

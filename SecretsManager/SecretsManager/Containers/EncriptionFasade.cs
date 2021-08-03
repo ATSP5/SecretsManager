@@ -34,7 +34,7 @@ namespace SecretsManager.Containers
         public string Dectypt(string textToDecrypt, EncryptionAlgorythm algorythm)
         {
             string secretText = "";
-            if (_aesService._isKeySet == true)
+            if (_aesService.IsKeySet == true)
             {
                 switch (algorythm)
                 {
@@ -56,7 +56,7 @@ namespace SecretsManager.Containers
         public string Enctypt(string textToEncrypt, EncryptionAlgorythm algorythm)
         {
             string secretText = "";
-            if(_aesService._isKeySet== true)
+            if(_aesService.IsKeySet== true)
             {
                 switch (algorythm)
                 {
@@ -73,6 +73,11 @@ namespace SecretsManager.Containers
                 throw new Exception("You must set key first!");
             }
             return secretText;
+        }
+
+        public bool GetKeyState()
+        {
+            return _aesService.IsKeySet;
         }
     }
 }

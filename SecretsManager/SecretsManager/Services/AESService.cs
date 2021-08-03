@@ -11,16 +11,16 @@ namespace SecretsManager
         private byte[] AESKEY;
         private byte[] AESIV;
         AesManaged APaes = new AesManaged();
-        bool IsKeySet;
-        public bool _isKeySet
+        private bool _isKeySet;
+        public bool IsKeySet
         {
-            get { return IsKeySet; }
+            get { return _isKeySet; }
         }
         private AESService()
         {
             AESKEY = APaes.Key;
             AESIV = APaes.IV;
-            IsKeySet = false;
+            _isKeySet = false;
         }
         private static AESService _instance;
         public static AESService GetInstance()
@@ -41,7 +41,7 @@ namespace SecretsManager
             {
                 AESIV[i] = 0;
             }
-            IsKeySet = false;
+            _isKeySet = false;
         }
         public void SetKey(string key)
         {
@@ -76,7 +76,7 @@ namespace SecretsManager
                     AESIV[i] = AESKEY[i];
                 }
             }
-            IsKeySet = true;
+            _isKeySet = true;
         }
         public string EncryptAESManaged(string raw)
         {

@@ -37,9 +37,9 @@
         <TabControl DockPanel.Dock="Top" Name="tcOperatingMode">
             <TabItem Header="Text mode">
                 <TextBox DockPanel.Dock="Bottom" Margin="0,0,0,0" VerticalScrollBarVisibility="Visible" 
-                         HorizontalScrollBarVisibility="Visible" Name ="MainWorkspace"  AcceptsReturn="True" AcceptsTab="True" 
-                         TextChanged="MainWorkspace_TextChanged" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-
+                         HorizontalScrollBarVisibility="Visible" Name ="MainWorkspace"  AcceptsReturn="True" AcceptsTab="True"
+                         IsEnabled="{Binding EnableWorkspace, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
             </TabItem>
             <TabItem Header=" 2K Table mode">

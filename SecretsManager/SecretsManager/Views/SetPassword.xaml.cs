@@ -45,7 +45,7 @@ namespace SecretsManager.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -64,7 +64,7 @@ namespace SecretsManager.Views
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
             finally
             {

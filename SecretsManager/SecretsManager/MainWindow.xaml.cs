@@ -17,6 +17,7 @@ using SecretsManager.Services;
 using Microsoft.Win32;
 using SecretsManager.Interfaces;
 using SecretsManager.Containers;
+using SecretsManager.Views;
 
 namespace SecretsManager
 {
@@ -71,10 +72,6 @@ public partial class MainWindow : Window
 
         private void EncryptCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Just for testing purpose, erese this!!!
-            EncriptionFasade ef = new EncriptionFasade();
-            ef.SetKey("Adam");
-            
             try
             {
                 switch (tcOperatingMode.SelectedIndex)
@@ -102,9 +99,6 @@ public partial class MainWindow : Window
 
         private void DecryptCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Just for testing purpose, erese this!!!
-            EncriptionFasade ef = new EncriptionFasade();
-            ef.SetKey("Adam");
             try
             {
                 switch (tcOperatingMode.SelectedIndex)
@@ -127,6 +121,8 @@ public partial class MainWindow : Window
         private void mINew_Click(object sender, RoutedEventArgs e)
         {
             _mainService.Reset(_basicText.GetObject());
+            _mainService.ResetKey();
+            mISeetPasswordCHB.IsChecked = _mainService.GetKeyState();
         }
 
         private void mIOpenAsText_Click(object sender, RoutedEventArgs e)
@@ -244,22 +240,27 @@ public partial class MainWindow : Window
 
         private void mIAES_Click(object sender, RoutedEventArgs e)
         {
-
+            encryptionMode = EncryptionAlgorythm.AES;
+            EncriptionModeTB.Text = "AES";
         }
 
         private void mIOFBStream_Click(object sender, RoutedEventArgs e)
         {
-
+            encryptionMode = EncryptionAlgorythm.OFB;
+            EncriptionModeTB.Text = "OFB";
+            var openfileDialog = new OpenFileDialog();
+            openfileDialog.Filter = "txt files (*.txt)|*.txt|(*.html)|*.html|(*.xml)|*.xml|Other file format (*.*)|*.*";
+            if (openfileDialog.ShowDialog() == true)
+            {
+                _mainService.OpenOFBStreamFile(openfileDialog.FileName);
+            }
         }
 
         private void mISetPassword_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void MainWorkspace_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            var setPasswordWnd = new SetPassword();
+            setPasswordWnd.ShowDialog();
+            mISeetPasswordCHB.IsChecked = _mainService.GetKeyState();
         }
 
         private void Open(OpenSaveMode openSaveMode)
@@ -279,7 +280,7 @@ public partial class MainWindow : Window
                openFileDialog.Filter = "Public text files (*.stf)|*.stf";
                if (openFileDialog.ShowDialog() == true)
                {
-                    // readFile = _mainService.OpenObject(openFileDialog.FileName);
+                     readFile = _mainService.OpenObject(openFileDialog.FileName);
                }
                break;
                case OpenSaveMode.AsRegularText:

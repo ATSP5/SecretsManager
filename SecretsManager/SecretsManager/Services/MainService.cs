@@ -40,10 +40,17 @@ namespace SecretsManager.Services
             return _object;
         }
 
+
         public void OpenText(BasicText file, string fileName)
         {
             file.Text = File.ReadAllText(fileName);
         }
+
+        public void OpenOFBStreamFile(string fileName)
+        {
+            _encriptionEngine.SetOFBStream(File.ReadAllText(fileName));
+        }
+
         public void SaveText(IOpenSaveFile file, string fileName)
         {
             File.WriteAllText(fileName, file.GetText());
@@ -82,6 +89,16 @@ namespace SecretsManager.Services
         public void Reset(IOpenSaveFile file)
         {
             file.Reset();
+        }
+
+        public bool GetKeyState()
+        {
+            return _encriptionEngine.GetKeyState();
+        }
+
+        public void ResetKey()
+        {
+            _encriptionEngine.ResetKey();
         }
     }
 }
