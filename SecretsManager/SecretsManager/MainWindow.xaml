@@ -6,16 +6,22 @@
         xmlns:local="clr-namespace:SecretsManager"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.EncryptCMD" CanExecute="EncryptCommand_CanExecute" Executed="EncryptCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.DecryptCMD" CanExecute="DecryptCommand_CanExecute" Executed="DecryptCommand_Executed" />
+    </Window.CommandBindings>
     <DockPanel Margin="0,0,0,0">
         <Menu DockPanel.Dock="Top" >
             <MenuItem  Header="File">
                 <MenuItem Header="New" Name="mINew" Click ="mINew_Click"/>
+                <MenuItem Header="Open as text" Name="mIOpenAsText" Click="mIOpenAsText_Click" />
                 <MenuItem Header="Open public text" Name="mIOpenPublicText" Click="mIOpenPublicText_Click"/>
                 <MenuItem Header="Open secret text" Name="mIOpenSecretText" Click="mIOpenSecretText_Click"/>
-                <MenuItem Header="Save public text" Name="mISavePublicText" Click="mISavePublicText_Click"/>
-                <MenuItem Header="Save secret text" Name="mISaveSecretText" Click="mISaveSecretText_Click"/>
-                <MenuItem Header="Encrypt" Name="mIEncrypt" InputGestureText="Ctrl+E"/>
-                <MenuItem Header="Decrypt" Name="mIDecrypt" InputGestureText="Ctrl+D"/>
+                <MenuItem Header="Save as public text" Name="mISavePublicText" Click="mISavePublicText_Click"/>
+                <MenuItem Header="Save as secret text" Name="mISaveSecretText" Click="mISaveSecretText_Click"/>
+                <MenuItem Header="Save as text file" Name="mISaveAsText" Click="mISaveAsText_Click"/>
+                <MenuItem Header="Encrypt" Name="mIEncrypt" InputGestureText="Ctrl+E" Command="local:CustomCommands.EncryptCMD"/>
+                <MenuItem Header="Decrypt" Name="mIDecrypt" InputGestureText="Ctrl+D" Command="local:CustomCommands.DecryptCMD"/>
                 <MenuItem Header="Close" Name="mIClose" Click="mIClose_Click"/>
             </MenuItem>
             <MenuItem Header="Chose algorithm">
@@ -28,9 +34,11 @@
             <TextBlock>Encription Mode:</TextBlock>
             <TextBox x:Name="EncriptionModeTB" IsEnabled="False"></TextBox>
         </Menu>
-        <TabControl DockPanel.Dock="Top">
+        <TabControl DockPanel.Dock="Top" Name="tcOperatingMode">
             <TabItem Header="Text mode">
-                <TextBox DockPanel.Dock="Bottom" Margin="0,0,0,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Name ="MainWorkspace"  AcceptsReturn="True" AcceptsTab="True" TextChanged="MainWorkspace_TextChanged">
+                <TextBox DockPanel.Dock="Bottom" Margin="0,0,0,0" VerticalScrollBarVisibility="Visible" 
+                         HorizontalScrollBarVisibility="Visible" Name ="MainWorkspace"  AcceptsReturn="True" AcceptsTab="True" 
+                         TextChanged="MainWorkspace_TextChanged" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                 </TextBox>
             </TabItem>

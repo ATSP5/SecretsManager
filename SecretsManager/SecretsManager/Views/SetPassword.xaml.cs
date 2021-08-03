@@ -22,10 +22,10 @@ namespace SecretsManager.Views
         public SetPassword()
         {
             InitializeComponent();
-            _aesService = DataEncryptor.AESService.GetInstance();
+            _aesService = SecretsManager.AESService.GetInstance();
         }
 
-        private DataEncryptor.AESService _aesService;
+        private SecretsManager.AESService _aesService;
 
 
         private void SPWPasswordBox_KeyDown(object sender, KeyEventArgs e)
